@@ -10,8 +10,8 @@ import { Container, Content, Background } from "./styles";
 
 import getValidationErrors from "../../utils/getValidationErrors";
 
-import { useAuth } from "../../hooks/AuthContext";
-import { useToast } from "../../hooks/Toast";
+import { useAuth } from "../../hooks/auth";
+import { useToast } from "../../hooks/toast";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
@@ -50,7 +50,11 @@ const SignIn: React.FC = () => {
           formRef.current?.setErrors(errors);
         }
 
-        addToast();
+        addToast({
+          type: "error",
+          title: "Erro na autenticação",
+          description: "Ocorreu um erro ao fazer login, cheque as credenciais.",
+        });
       }
     },
     [signIn, addToast]
