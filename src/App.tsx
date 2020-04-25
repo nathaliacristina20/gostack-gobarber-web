@@ -1,7 +1,4 @@
 import React from "react";
 
-function App() {
-  return <p>Works!</p>;
-}
-
+const App: React.FC = () => <p>Works!</p>;
 export default App;
