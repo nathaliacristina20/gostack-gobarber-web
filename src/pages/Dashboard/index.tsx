@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { FiPower, FiClock } from 'react-icons/fi';
 import {
@@ -9,13 +9,17 @@ import {
   Content,
   Schedule,
   NextAppointment,
+  Section,
   Calendar,
+  Appointment,
 } from './styles';
 
 import logoImg from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/auth';
 
 const Dashboard: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   const { signOut, user } = useAuth();
 
   return (
@@ -62,6 +66,89 @@ const Dashboard: React.FC = () => {
               </span>
             </div>
           </NextAppointment>
+
+          <Section>
+            <strong>Manha</strong>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                8:00
+              </span>
+              <div>
+                <img
+                  src="http://localhost:3333/files/ffb2d35272f5b1e11588-cliente.jpg"
+                  alt="Nome"
+                />
+
+                <strong>Diego Fernandades</strong>
+              </div>
+            </Appointment>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                8:00
+              </span>
+              <div>
+                <img
+                  src="http://localhost:3333/files/ffb2d35272f5b1e11588-cliente.jpg"
+                  alt="Nome"
+                />
+
+                <strong>Diego Fernandades</strong>
+              </div>
+            </Appointment>
+          </Section>
+
+          <Section>
+            <strong>Tarde</strong>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                8:00
+              </span>
+              <div>
+                <img
+                  src="http://localhost:3333/files/ffb2d35272f5b1e11588-cliente.jpg"
+                  alt="Nome"
+                />
+
+                <strong>Diego Fernandades</strong>
+              </div>
+            </Appointment>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                8:00
+              </span>
+              <div>
+                <img
+                  src="http://localhost:3333/files/ffb2d35272f5b1e11588-cliente.jpg"
+                  alt="Nome"
+                />
+
+                <strong>Diego Fernandades</strong>
+              </div>
+            </Appointment>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                8:00
+              </span>
+              <div>
+                <img
+                  src="http://localhost:3333/files/ffb2d35272f5b1e11588-cliente.jpg"
+                  alt="Nome"
+                />
+
+                <strong>Diego Fernandades</strong>
+              </div>
+            </Appointment>
+          </Section>
         </Schedule>
         <Calendar>Calendar</Calendar>
       </Content>
