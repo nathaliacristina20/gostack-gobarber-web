@@ -11,6 +11,7 @@ import Route from './Route';
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
 import Profile from '../pages/Profile';
+import { SocketProvider } from '../hooks/socket';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -18,8 +19,10 @@ const Routes: React.FC = () => (
     <Route path="/signup" component={SignUp} />
     <Route path="/forgot-password" component={ForgotPassword} />
     <Route path="/reset-password" component={ResetPassword} />
-    <Route path="/dashboard" component={Dashboard} isPrivate />
-    <Route path="/profile" component={Profile} isPrivate />
+    <SocketProvider>
+      <Route path="/dashboard" component={Dashboard} isPrivate />
+      <Route path="/profile" component={Profile} isPrivate />
+    </SocketProvider>
   </Switch>
 );
 export default Routes;

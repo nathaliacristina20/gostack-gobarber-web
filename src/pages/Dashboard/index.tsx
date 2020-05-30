@@ -22,7 +22,12 @@ import {
 
 import logoImg from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/auth';
+import { useSocket } from '../../hooks/socket';
 import api from '../../services/api';
+
+interface Notification {
+  content: string;
+}
 
 interface MonthAvailability {
   day: number;
@@ -46,8 +51,11 @@ const Dashboard: React.FC = () => {
   >([]);
 
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const { signOut, user } = useAuth();
+
+  const { socket } = useSocket();
 
   const handleMonthChange = useCallback((month: Date) => {
     setCurrentMonth(month);
@@ -58,6 +66,13 @@ const Dashboard: React.FC = () => {
       setSelectedDate(day);
     }
   }, []);
+
+  useEffect(() => {
+    socket.on('notification', (notification: Notification) => {
+      console.log('New Notification ', notification);
+      setNotifications([notification, ...notifications]);
+    });
+  }, [socket, notifications]);
 
   useEffect(() => {
     api
@@ -140,7 +155,12 @@ const Dashboard: React.FC = () => {
           <img src={logoImg} alt="GoBarber" />
 
           <Profile>
-            <img src={user.avatar_url} alt={user.name} />
+            <img
+              src={
+                user.avatar_url || `https://api.adorable.io/avatars/${user.id}`
+              }
+              alt={user.name}
+            />
             <div>
               <span>Bem-vindo (a),</span>
               <Link to="/profile">
