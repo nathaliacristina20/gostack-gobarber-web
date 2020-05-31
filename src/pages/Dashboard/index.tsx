@@ -51,11 +51,12 @@ const Dashboard: React.FC = () => {
   >([]);
 
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const { signOut, user } = useAuth();
 
-  const { socket } = useSocket();
+  const { connection } = useSocket();
 
   const handleMonthChange = useCallback((month: Date) => {
     setCurrentMonth(month);
@@ -68,11 +69,14 @@ const Dashboard: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('notification', (notification: Notification) => {
-      console.log('New Notification ', notification);
-      setNotifications([notification, ...notifications]);
-    });
-  }, [socket, notifications]);
+    if (connection) {
+      console.log('Conexao 1 ', connection);
+      connection.on('notification', (notification: Notification) => {
+        console.log('New Notification ', notification);
+        setNotifications((state) => [...state, notification]);
+      });
+    }
+  }, [user.id, connection]);
 
   useEffect(() => {
     api
