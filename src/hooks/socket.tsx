@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 
 import socketio from 'socket.io-client';
 import { useAuth } from './auth';
@@ -12,25 +12,14 @@ const SocketContext = createContext<SocketContextData>({} as SocketContextData);
 const SocketProvider: React.FC = ({ children }) => {
   const { user } = useAuth();
 
-  const [socket, setSocket] = useState<SocketIOClient.Socket>();
-
-  useEffect(() => {
-    try {
-      if (!socket) {
-        const connection = socketio('http://localhost:3333', {
-          query: {
-            user_id: user.id,
-          },
-        });
-
-        console.log('Conexao no contexto: ', connection);
-
-        setSocket(connection);
-      }
-    } catch (err) {
-      console.log('Erro na conexao com o Socket.io');
-    }
-  }, [user.id, socket]);
+  const socket = useMemo<SocketIOClient.Socket>(() => {
+    const connection = socketio('http://localhost:3333', {
+      query: {
+        user_id: user.id,
+      },
+    });
+    return connection;
+  }, [user.id]);
 
   return (
     <SocketContext.Provider value={{ connection: socket }}>
