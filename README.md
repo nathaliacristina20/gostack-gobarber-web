@@ -64,7 +64,8 @@ e para barbeiros, permite gerenciar os horários marcados.</p>
 - Execute ```yarn``` para instalar as dependências
 - Execute ```yarn start``` para rodar o servidor
 
-Caso deseje executar os testes unitários e de integração basta executar ```yarn test``` em seu terminal. 
+- Caso deseje executar os testes unitários basta executar ```yarn test``` em seu terminal. 
+- Para visualizar um relatório detalhado sobre a cobertura dos testes rode ```yarn test:coverage``` e acesse o arquivo ```coverage/lcov-report/index.html```.
 
 ## :pencil: Como contribuir
 
